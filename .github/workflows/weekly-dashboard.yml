@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '59 14 * * 0'   # Sunday 23:59 KST (UTC 기준)
+    - cron: '59 14 * * 0'   # Sunday 23:59 KST (UTC 14:59)
   workflow_dispatch:
 
 permissions:
@@ -18,9 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # ---------------------------
-      # 1️⃣ 통계 계산
-      # ---------------------------
+      # =========================================
+      # 1️⃣ 이번 주 PR 통계 계산
+      # =========================================
       - name: Generate Weekly Stats
         uses: actions/github-script@v6
         with:
@@ -29,7 +29,7 @@ jobs:
             const org = context.repo.owner;
             const repo = context.repo.repo;
 
-            // 🔹 Organization 멤버 목록
+            // 🔹 Organization 멤버 목록 가져오기
             const { data: members } = await github.rest.orgs.listMembers({
               org: org,
               per_page: 100
@@ -37,13 +37,13 @@ jobs:
 
             const memberLogins = members.map(m => m.login);
 
-            // 🔹 KST 기준 월요일 00:00 계산
+            // 🔹 KST 기준 이번 주 월요일 00:00 계산
             const now = new Date();
             const kstNow = new Date(
               now.toLocaleString("en-US", { timeZone: "Asia/Seoul" })
             );
 
-            const day = kstNow.getDay();      // 0=일요일
+            const day = kstNow.getDay(); // 0=일요일
             const diff = day === 0 ? 6 : day - 1;
 
             kstNow.setDate(kstNow.getDate() - diff);
@@ -54,7 +54,7 @@ jobs:
             console.log("KST Monday:", kstNow.toISOString());
             console.log("UTC Monday:", mondayUTC.toISOString());
 
-            // 🔹 PR 목록
+            // 🔹 PR 목록 조회
             const { data: pulls } = await github.rest.pulls.list({
               owner: org,
               repo: repo,
@@ -62,7 +62,7 @@ jobs:
               per_page: 100
             });
 
-            // 🔹 이번 주에 merge된 PR 필터링
+            // 🔹 이번 주 merge된 PR만 필터링
             const weekly = pulls.filter(pr =>
               pr.merged_at && new Date(pr.merged_at) >= mondayUTC
             );
@@ -93,30 +93,36 @@ jobs:
 
             fs.writeFileSync("dashboard.md", table);
 
-      # ---------------------------
-      # 2️⃣ README에 삽입
-      # ---------------------------
+      # =========================================
+      # 2️⃣ README 치환 (완전 안정 버전)
+      # =========================================
       - name: Inject into README
         run: |
-          awk '
-          /<!-- WEEKLY_DASHBOARD_START -->/ {
+          START="<!-- WEEKLY_DASHBOARD_START -->"
+          END="<!-- WEEKLY_DASHBOARD_END -->"
+
+          awk -v start="$START" -v end="$END" '
+          $0 ~ start {
             print;
             print "";
-            while ((getline line < "dashboard.md") > 0) print line;
+            while ((getline line < "dashboard.md") > 0)
+              print line;
             skip=1;
             next;
           }
-          /<!-- WEEKLY_DASHBOARD_END -->/ {
+          $0 ~ end {
             skip=0;
+            print;
+            next;
           }
           !skip
           ' README.md > temp.md
 
           mv temp.md README.md
 
-      # ---------------------------
-      # 3️⃣ 변경사항 커밋
-      # ---------------------------
+      # =========================================
+      # 3️⃣ 변경사항 커밋 & 푸시
+      # =========================================
       - name: Commit changes
         run: |
           git config user.name "github-actions"
