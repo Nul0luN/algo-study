@@ -1,15 +1,3 @@
-# 📚 Algo Gongbu Study
-
-## 📊 Weekly Dashboard
-
-<!-- WEEKLY_DASHBOARD_START -->
-
-📅 기준: 2026-02-09 (월요일 00:00 KST)
-
-| Member | Count | Status |
-|--------|-------|--------|
-| tomchaccom | 2 | ❌ |
-<!-- WEEKLY_DASHBOARD_END -->
 
 # 📚 Algo Gongbu Study
 
@@ -115,5 +103,6 @@ Action이 정상 실행되었다면, 본인 백준 아이디 폴더 내부에 �
 반드시 Squash Merge를 사용합니다.
 
 <img width="703" height="57" alt="image" src="https://github.com/user-attachments/assets/196da5ab-e6bf-446e-a136-ab4de22870f1" />
+
 
 
