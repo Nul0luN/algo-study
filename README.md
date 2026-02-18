@@ -8,13 +8,13 @@
 
 | Member | Count | Status |
 |--------|-------|--------|
-| FaceWithNull | 8 | ✅ |
 | KangYeSeo04 | 1 | ❌ |
 | LYoooJ | 7 | ✅ |
+| Nul0luN | 8 | ✅ |
 | godten-cmd | 5 | ✅ |
 | gun9212 | 1 | ❌ |
 | orca-svg | 1 | ❌ |
-| sungjaep11 | 4 | ❌ |
+| sungjaep11 | 5 | ✅ |
 | tomchaccom | 3 | ❌ |
 <!-- WEEKLY_DASHBOARD_END -->
 
