@@ -15,7 +15,7 @@
 | godten-cmd | 5 | ✅ |
 | gun9212 | 4 | ❌ |
 | onff02 | 1 | ❌ |
-| orca-svg | 1 | ❌ |
+| orca-svg | 2 | ❌ |
 | sungjaep11 | 5 | ✅ |
 | tomchaccom | 5 | ✅ |
 <!-- WEEKLY_DASHBOARD_END -->
