@@ -11,6 +11,7 @@
 | KangYeSeo04 | 2 | ❌ |
 | Nul0luN | 2 | ❌ |
 | alicebsy | 1 | ❌ |
+| hjxarchive | 1 | ❌ |
 | orca-svg | 11 | ✅ |
 <!-- WEEKLY_DASHBOARD_END -->
 
