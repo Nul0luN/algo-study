@@ -10,7 +10,7 @@
 |--------|-------|--------|
 | KangYeSeo04 | 2 | ❌ |
 | Nul0luN | 4 | ❌ |
-| alicebsy | 1 | ❌ |
+| alicebsy | 2 | ❌ |
 | hjxarchive | 1 | ❌ |
 | orca-svg | 11 | ✅ |
 | sungjaep11 | 1 | ❌ |
